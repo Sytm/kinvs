@@ -1,4 +1,4 @@
-package de.md5lukas.kinv
+package de.md5lukas.kinvs
 
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -12,7 +12,7 @@ class GUI(
 
     private var onClose: (() -> Unit)? = null
 
-    val activePage: GUIPage = GUIPage(this)
+    var activePage: GUIPage = GUIPage(this)
 
     fun update() {
         activePage.grid.forEachIndexed { row, rows ->

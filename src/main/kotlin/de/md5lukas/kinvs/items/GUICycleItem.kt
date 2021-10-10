@@ -1,11 +1,11 @@
-package de.md5lukas.kinv.items
+package de.md5lukas.kinvs.items
 
-import de.md5lukas.kinv.GUI
-import de.md5lukas.kinv.GUIPage
+import de.md5lukas.kinvs.GUI
+import de.md5lukas.kinvs.GUIPage
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
-class GUICycleItem<T>(
+open class GUICycleItem<T>(
     private val values: List<Pair<T, ItemStack>>,
     private val onCycle: ((T) -> Unit)?
 ) : GUIContent {

@@ -1,4 +1,4 @@
-package de.md5lukas.kinv
+package de.md5lukas.kinvs
 
 data class InventoryPosition(
     val row: Int,

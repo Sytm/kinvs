@@ -1,4 +1,4 @@
-package de.md5lukas.kinv
+package de.md5lukas.kinvs
 
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
@@ -68,9 +68,9 @@ internal object GUIManager : Listener {
         val gui = inventories[e.whoClicked]!!
 
         val position = InventoryPosition(
+            e.slot / 9,
             e.slot % 9,
-            e.slot / 9
-        )
+            )
 
         gui.onClick(e, position)
     }

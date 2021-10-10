@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.30"
+    kotlin("jvm") version "1.5.31"
     `maven-publish`
 }
 
@@ -18,17 +18,23 @@ repositories {
 
 dependencies {
     api(kotlin("stdlib-jdk8"))
-    implementation("org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT")
+    api ("org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT")
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+val sourcesJar by tasks.creating(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["kotlin"])
+            artifact(sourcesJar)
         }
     }
 }

@@ -1,11 +1,10 @@
-package de.md5lukas.kinv.items
+package de.md5lukas.kinvs.items
 
-import de.md5lukas.kinv.GUI
-import de.md5lukas.kinv.GUIPage
+import de.md5lukas.kinvs.GUI
+import de.md5lukas.kinvs.GUIPage
 import org.bukkit.Material
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
-import java.util.*
 
 interface GUIContent {
 
