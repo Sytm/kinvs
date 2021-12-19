@@ -1,12 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm")
     `maven-publish`
 }
-
-group = "de.md5lukas"
-version = "1.0.0-SNAPSHOT"
 
 repositories {
     mavenLocal()
@@ -17,12 +14,16 @@ repositories {
 }
 
 dependencies {
+    val spigotVersion: String by project
+
     api(kotlin("stdlib-jdk8"))
-    api ("org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT")
+    api ("org.spigotmc:spigot-api:$spigotVersion")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    val jvmTarget: String by project
+
+    kotlinOptions.jvmTarget = jvmTarget
 }
 
 val sourcesJar by tasks.creating(Jar::class) {
