@@ -73,5 +73,7 @@ internal object GUIManager : Listener {
             )
 
         gui.onClick(e, position)
+
+        e.isCancelled = true
     }
 }
