@@ -2,12 +2,16 @@ package de.md5lukas.kinvs
 
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryDragEvent
+import org.bukkit.event.inventory.InventoryInteractEvent
+import org.bukkit.event.inventory.InventoryMoveItemEvent
 import org.bukkit.event.server.PluginDisableEvent
 import org.bukkit.plugin.java.JavaPlugin
+import java.util.logging.Level
 
 internal object GUIManager : Listener {
 
@@ -70,10 +74,32 @@ internal object GUIManager : Listener {
         val position = InventoryPosition(
             e.slot / 9,
             e.slot % 9,
-            )
+        )
 
         gui.onClick(e, position)
 
         e.isCancelled = true
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    private fun onInventoryDragMonitor(e: InventoryDragEvent) {
+        if (e.whoClicked !in inventories) {
+            return
+        }
+        plugin.logger.log(
+            Level.SEVERE,
+            "Another plugin has un-cancelled an InventoryDragEvent, breaking KInvs"
+        )
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    private fun onInventoryClickMonitor(e: InventoryClickEvent) {
+        if (e.whoClicked !in inventories) {
+            return
+        }
+        plugin.logger.log(
+            Level.SEVERE,
+            "Another plugin has un-cancelled an InventoryClickEvent, breaking KInvs"
+        )
     }
 }
