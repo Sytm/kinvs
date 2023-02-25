@@ -23,7 +23,7 @@ open class GUICycleItem<T>(
 
     private var position = 0
 
-    override fun click(gui: GUI, GUIPage: GUIPage, event: InventoryClickEvent) {
+    override fun click(gui: GUI, guiPage: GUIPage, event: InventoryClickEvent) {
         cycle(event.isShiftClick)
         onCycle?.invoke(currentValue)
     }

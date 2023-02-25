@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
@@ -21,10 +20,9 @@ dependencies {
     api ("org.spigotmc:spigot-api:$spigotVersion")
 }
 
-tasks.withType<KotlinCompile> {
+kotlin {
     val jvmTarget: String by project
-
-    kotlinOptions.jvmTarget = jvmTarget
+    jvmToolchain(jvmTarget.toInt())
 }
 
 val sourcesJar by tasks.creating(Jar::class) {

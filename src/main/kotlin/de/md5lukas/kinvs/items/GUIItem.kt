@@ -24,7 +24,7 @@ class GUIItem(
      */
     constructor(item: ItemStack): this(item, null)
 
-    override fun click(gui: GUI, GUIPage: GUIPage, event: InventoryClickEvent) {
+    override fun click(gui: GUI, guiPage: GUIPage, event: InventoryClickEvent) {
         onClick?.invoke(event)
     }
 
