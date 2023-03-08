@@ -2,6 +2,7 @@ package de.md5lukas.kinvs
 
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
+import org.bukkit.inventory.Inventory
 
 /**
  * A GUI instance represents a single Bukkit inventory with fixed title and size.
@@ -66,4 +67,6 @@ class GUI(
     internal fun onClose() {
         onClose?.invoke()
     }
+
+    internal fun isInventory(other: Inventory) = other == inventory
 }
