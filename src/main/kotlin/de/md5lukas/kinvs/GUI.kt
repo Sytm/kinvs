@@ -12,16 +12,39 @@ import org.bukkit.inventory.Inventory
  * By default, the inventory stays closed and must be opened by calling [open]
  *
  * @property player The player the GUI should be visible for
- * @param title The title of the inventory
- * @property rows The amount of rows the inventory should have.
+ * @property inventory The inventory to wrap
  * @constructor Creates an empty GUI
  */
 class GUI(
     private val player: Player,
-    title: String,
-    val rows: Int
+    private val inventory: Inventory,
 ) {
-    private val inventory = GUIManager.plugin.server.createInventory(null, rows * 9, title)
+
+    /**
+     * The amount of rows this GUI has
+     */
+    val rows = inventory.size / 9
+
+    /**
+     * A GUI instance represents a single Bukkit inventory with fixed title and size.
+     *
+     * The content can be changed by swapping out the [activePage] with another one or altering its content.
+     *
+     * By default, the inventory stays closed and must be opened by calling [open]
+     *
+     * @param player The player the GUI should be visible for
+     * @param title The title of the inventory
+     * @param rows The amount of rows the inventory should have.
+     * @constructor Creates an empty GUI
+     */
+    constructor(
+        player: Player,
+        title: String,
+        rows: Int,
+    ) : this(
+        player,
+        GUIManager.plugin.server.createInventory(null, rows * 9, title),
+    )
 
     /**
      * Callback that gets called when the inventory is closed
