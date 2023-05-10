@@ -26,7 +26,7 @@ internal object GUIManager : Listener {
     }
 
     @EventHandler
-    private fun onPluginDisable(e: PluginDisableEvent) {
+    fun onPluginDisable(e: PluginDisableEvent) {
         if (e.plugin !== plugin) {
             return
         }
@@ -38,7 +38,7 @@ internal object GUIManager : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClose(e: InventoryCloseEvent) {
+    fun onInventoryClose(e: InventoryCloseEvent) {
         inventories[e.player]?.let {
             if (it.isInventory(e.inventory)) {
                 inventories.remove(e.player)
@@ -48,7 +48,7 @@ internal object GUIManager : Listener {
     }
 
     @EventHandler
-    private fun onInventoryDrag(e: InventoryDragEvent) {
+    fun onInventoryDrag(e: InventoryDragEvent) {
         if (e.whoClicked !in inventories) {
             return
         }
@@ -57,7 +57,7 @@ internal object GUIManager : Listener {
     }
 
     @EventHandler
-    private fun onInventoryClick(e: InventoryClickEvent) {
+    fun onInventoryClick(e: InventoryClickEvent) {
         if (e.whoClicked !in inventories) {
             return
         }
@@ -85,7 +85,7 @@ internal object GUIManager : Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    private fun onInventoryDragMonitor(e: InventoryDragEvent) {
+    fun onInventoryDragMonitor(e: InventoryDragEvent) {
         if (e.whoClicked !in inventories) {
             return
         }
@@ -96,7 +96,7 @@ internal object GUIManager : Listener {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    private fun onInventoryClickMonitor(e: InventoryClickEvent) {
+    fun onInventoryClickMonitor(e: InventoryClickEvent) {
         if (e.whoClicked !in inventories) {
             return
         }
