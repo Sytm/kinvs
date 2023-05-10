@@ -12,13 +12,12 @@ plugins {
 repositories {
     mavenCentral()
 
-    maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven(url = "https://oss.sonatype.org/content/groups/public/")
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
     api(libs.stdlib)
-    api(libs.spigot)
+    api(libs.paper)
 }
 
 kotlin {

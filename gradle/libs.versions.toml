@@ -1,11 +1,11 @@
 [versions]
 kotlin = "1.8.21"
-jvmToolchain = "16"
-spigot = "1.17.1-R0.1-SNAPSHOT"
+jvmToolchain = "17"
+paper = "1.19.4-R0.1-SNAPSHOT"
 
 [libraries]
 stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
-spigot = { group = "org.spigotmc", name = "spigot-api", version.ref = "spigot" }
+paper = { group = "io.papermc.paper", name = "paper-api", version.ref = "paper" }
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

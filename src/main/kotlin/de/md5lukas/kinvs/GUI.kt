@@ -1,8 +1,10 @@
 package de.md5lukas.kinvs
 
+import net.kyori.adventure.text.Component
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.InventoryHolder
 
 /**
  * A GUI instance represents a single Bukkit inventory with fixed title and size.
@@ -12,39 +14,19 @@ import org.bukkit.inventory.Inventory
  * By default, the inventory stays closed and must be opened by calling [open]
  *
  * @property player The player the GUI should be visible for
- * @property inventory The inventory to wrap
+ * @property rows The amount of rows this GUI has
+ * @param title The title of the GUI
  * @constructor Creates an empty GUI
  */
 class GUI(
     private val player: Player,
-    private val inventory: Inventory,
-) {
+    val rows: Int,
+    title: Component,
+) : InventoryHolder {
 
-    /**
-     * The amount of rows this GUI has
-     */
-    val rows = inventory.size / 9
+    private val inventory = GUIManager.plugin.server.createInventory(this, rows * 9, title)
 
-    /**
-     * A GUI instance represents a single Bukkit inventory with fixed title and size.
-     *
-     * The content can be changed by swapping out the [activePage] with another one or altering its content.
-     *
-     * By default, the inventory stays closed and must be opened by calling [open]
-     *
-     * @param player The player the GUI should be visible for
-     * @param title The title of the inventory
-     * @param rows The amount of rows the inventory should have.
-     * @constructor Creates an empty GUI
-     */
-    constructor(
-        player: Player,
-        title: String,
-        rows: Int,
-    ) : this(
-        player,
-        GUIManager.plugin.server.createInventory(null, rows * 9, title),
-    )
+    override fun getInventory(): Inventory = inventory
 
     /**
      * Callback that gets called when the inventory is closed
@@ -73,7 +55,6 @@ class GUI(
      * To (re)open the inventory this function must be called.
      */
     fun open() {
-        GUIManager.registerGUI(player, this)
         player.openInventory(inventory)
     }
 
@@ -90,6 +71,4 @@ class GUI(
     internal fun onClose() {
         onClose?.invoke()
     }
-
-    internal fun isInventory(other: Inventory) = other == inventory
 }
