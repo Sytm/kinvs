@@ -1,8 +1,11 @@
 import org.jetbrains.dokka.gradle.DokkaTask
 
 plugins {
-    kotlin("jvm") version "1.8.10"
-    id("org.jetbrains.dokka") version "1.7.20"
+    with(libs.plugins) {
+        alias(kotlin)
+        alias(dokka)
+        alias(spotless)
+    }
     `maven-publish`
 }
 
@@ -14,15 +17,18 @@ repositories {
 }
 
 dependencies {
-    val spigotVersion: String by project
-
-    api(kotlin("stdlib-jdk8"))
-    api ("org.spigotmc:spigot-api:$spigotVersion")
+    api(libs.stdlib)
+    api(libs.spigot)
 }
 
 kotlin {
-    val jvmTarget: String by project
-    jvmToolchain(jvmTarget.toInt())
+    jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+}
+
+spotless {
+    kotlin {
+        ktfmt()
+    }
 }
 
 val sourcesJar by tasks.creating(Jar::class) {
