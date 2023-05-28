@@ -36,23 +36,29 @@ open class GUIPage(gui: GUI) {
       rowOffset: Int,
       columnOffset: Int,
       defaultValue: GUIContent,
-      vararg mappings: Pair<Char, GUIContent>
+      mappings: Map<Char, GUIContent>
   ) {
     for (row in 0 until min(rows - rowOffset, pattern.rows)) {
       for (column in 0 until min(columns - columnOffset, pattern.columns)) {
         grid[row + rowOffset][column + columnOffset] =
-            mappings[pattern[row, column]] ?: defaultValue
+            mappings.getOrDefault(pattern[row, column], defaultValue)
       }
     }
   }
 
-  private operator fun Array<out Pair<Char, GUIContent>>.get(key: Char): GUIContent? {
-    for (pair in this) {
-      if (pair.first == key) {
-        return pair.second
-      }
-    }
-
-    return null
-  }
+  /**
+   * Applies the provided GUI pattern to this page at the given offset
+   *
+   * @param pattern The pattern to apply
+   * @param rowOffset The offset from the top
+   * @param columnOffset The offset from the left
+   * @param mappings The mappings from the characters in the pattern to an actual GUIContent
+   */
+  fun applyPattern(
+      pattern: GUIPattern,
+      rowOffset: Int,
+      columnOffset: Int,
+      defaultValue: GUIContent,
+      vararg mappings: Pair<Char, GUIContent>
+  ) = applyPattern(pattern, rowOffset, columnOffset, defaultValue, mapOf(*mappings))
 }
