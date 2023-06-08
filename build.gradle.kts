@@ -38,7 +38,13 @@ val sourcesJar by tasks.creating(Jar::class) {
 val dokkaHtml by tasks.getting(DokkaTask::class) {
     dokkaSourceSets {
         configureEach {
-            externalDocumentationLink("https://hub.spigotmc.org/javadocs/spigot/", "https://hub.spigotmc.org/javadocs/spigot/element-list")
+            val majorVersion = libs.versions.paper.get().split('.').take(2).joinToString(".")
+            externalDocumentationLink(
+                "https://jd.papermc.io/paper/$majorVersion/",
+                "https://jd.papermc.io/paper/$majorVersion/element-list")
+            externalDocumentationLink(
+                "https://jd.advntr.dev/api/4.13.1/",
+                "https://jd.advntr.dev/api/4.13.1/element-list")
         }
     }
 }
