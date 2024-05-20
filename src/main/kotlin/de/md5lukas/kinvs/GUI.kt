@@ -22,15 +22,17 @@ import org.bukkit.inventory.InventoryHolder
 class GUI(
     private val player: Player,
     val rows: Int,
-    title: Component,
+    private val title: Component,
 ) : InventoryHolder {
 
-  private val inventory = GUIManager.plugin.server.createInventory(this, rows * 9, title)
+  private var inventory = GUIManager.plugin.server.createInventory(this, rows * 9, title)
 
   override fun getInventory(): Inventory = inventory
 
   /** Callback that gets called when the inventory is closed */
   var onClose: (() -> Unit)? = null
+
+  private var pageChanged = true
 
   /**
    * The active page that is currently displayed by the GUI.
@@ -38,13 +40,27 @@ class GUI(
    * After changing the active page an update must be forced by calling [update]
    */
   var activePage: GUIPage = GUIPage(this)
+    set(value) {
+      field = value
+      pageChanged = true
+    }
 
   /** Calling this method refreshed the inventory by applying the [activePage] to it. */
   fun update() {
+    if (pageChanged) {
+      inventory =
+          GUIManager.plugin.server.createInventory(this, rows * 9, activePage.title ?: title)
+    }
+
     activePage.grid.forEachIndexed { row, rows ->
       rows.forEachIndexed { column, guiContent ->
         inventory.setItem((row * 9 + column), guiContent.item)
       }
+    }
+
+    if (pageChanged) {
+      player.openInventory(inventory)
+      pageChanged = false
     }
   }
 
@@ -63,6 +79,8 @@ class GUI(
 
   /** This function gets called by the KInvs listener when the inventory gets closed */
   internal fun onClose() {
-    onClose?.invoke()
+    if (!pageChanged) {
+      onClose?.invoke()
+    }
   }
 }

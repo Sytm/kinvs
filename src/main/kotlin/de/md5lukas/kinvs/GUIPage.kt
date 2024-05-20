@@ -2,6 +2,7 @@ package de.md5lukas.kinvs
 
 import de.md5lukas.kinvs.items.GUIContent
 import kotlin.math.min
+import net.kyori.adventure.text.Component
 
 /**
  * A GUIPage represents the current contents of the inventory at any given moment when the page is
@@ -23,6 +24,9 @@ open class GUIPage(gui: GUI) {
 
   open val grid: Array<Array<GUIContent>> = Array(rows) { Array(columns) { GUIContent.AIR } }
 
+  open val title: Component?
+    get() = null
+
   /**
    * Applies the provided GUI pattern to this page at the given offset
    *
@@ -38,8 +42,8 @@ open class GUIPage(gui: GUI) {
       defaultValue: GUIContent,
       mappings: Map<Char, GUIContent>
   ) {
-    for (row in 0 until min(rows - rowOffset, pattern.rows)) {
-      for (column in 0 until min(columns - columnOffset, pattern.columns)) {
+    for (row in 0 ..< min(rows - rowOffset, pattern.rows)) {
+      for (column in 0 ..< min(columns - columnOffset, pattern.columns)) {
         grid[row + rowOffset][column + columnOffset] =
             mappings.getOrDefault(pattern[row, column], defaultValue)
       }

@@ -43,8 +43,8 @@ val dokkaHtml by tasks.getting(DokkaTask::class) {
                 "https://jd.papermc.io/paper/$majorVersion/",
                 "https://jd.papermc.io/paper/$majorVersion/element-list")
             externalDocumentationLink(
-                "https://jd.advntr.dev/api/4.13.1/",
-                "https://jd.advntr.dev/api/4.13.1/element-list")
+                "https://jd.advntr.dev/api/4.17.0/",
+                "https://jd.advntr.dev/api/4.17.0/element-list")
         }
     }
 }

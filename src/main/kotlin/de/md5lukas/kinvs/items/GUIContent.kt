@@ -15,6 +15,7 @@ interface GUIContent {
   /** Instance of GUIContent that represents an empty slot that does nothing when clicked */
   companion object AIR : GUIContent {
     override fun click(gui: GUI, guiPage: GUIPage, event: InventoryClickEvent) {}
+
     override val item: ItemStack = ItemStack(Material.AIR)
   }
 
